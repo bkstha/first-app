@@ -13,64 +13,40 @@ angular.module('firstAppApp')
       console.log("at dashboard page");
       var users = [];
       const pagesSize = 10;
+      var userId=151;
       $scope.pageSizes = [
         {id: 0, label: '10', value: 10},
         {id: 1, label: '25', value: 25},
         {id: 2, label: '50', value: 50},
         {id: 3, label: '100', value: 100}
       ];
+      $scope.user = {};
       $scope.pageSize = $scope.pageSizes[0];
-      for (var i = 0; i <150; i++) {
+      for (var i = 0; i < 150; i++) {
         var index = (i + 1);
-        users.push({id: (index), email: "email" + index, name: "name" + (index), contact: "contact" + index})
+        users.push({id: (index), email: "email" + index, name: "name" + (index), contactNumber: "contact" + index})
       }
 
       $scope.users = users.slice(0, pagesSize);
-      // $scope.pageSize=pagesSize;
       $scope.pageNumber = 1;
       $scope.totalDataLength = users.length;
-      // $scope.dataDisplayText= "Displaying 1 of " +users.length;
-      // $scope.pageSize=10;
 
-      // $scope.searchPerson = function () {
-      //   console.log("searching");
-      //   var searchData = $scope.search;
-      //   var pageSize = $scope.pageSize;
-      //   console.log(searchData);
-      //   console.log(pageSize);
-      //   $scope.users = users.filter(function (user) {
-      //     return (user.name.indexOf(searchData) > -1 || user.email.indexOf(searchData) > -1 || user.contact.indexOf(searchData) > -1)
-      //   }).slice(0, pageSize);
-      //
-      // };
-      //
-      // $scope.changeSearchSize = function () {
-      //   console.log("changing page search size");
-      //
-      //   refreshDatagrid();
-      // }
       $scope.refreshDatagrid = function () {
         var pageSize = $scope.pageSize.value;
         var searchData = $scope.search;
         var pageNumber = $scope.pageNumber;
         console.log("refreshing data");
-        console.log(pageSize, searchData, pageNumber)
         if (searchData) {
-          console.log(1);
-          console.log(((pageNumber * pageSize) - pageSize));
           $scope.users = users.filter(function (user) {
             return (user.name.indexOf(searchData) > -1 || user.email.indexOf(searchData) > -1 || user.contact.indexOf(searchData) > -1)
-          }).slice(((pageNumber * pageSize) - pageSize), pageSize*pageNumber);
+          }).slice(((pageNumber * pageSize) - pageSize), pageSize * pageNumber);
         } else {
-          console.log(2);
-          console.log(users);
-          console.log((((pageNumber * pageSize) - pageSize) - 1), pageSize)
-          $scope.users = users.slice((((pageNumber * pageSize) - pageSize)), pageSize*pageNumber);
+          $scope.users = users.slice((((pageNumber * pageSize) - pageSize)), pageSize * pageNumber);
         }
       }
       $scope.nextPage = function () {
         var pageNumber = $scope.pageNumber;
-        if (!(($scope.pageSize.value*pageNumber)>($scope.totalDataLength-1))) {
+        if (!(($scope.pageSize.value * pageNumber) > ($scope.totalDataLength - 1))) {
           $scope.pageNumber = pageNumber + 1;
           $scope.refreshDatagrid();
         }
@@ -82,9 +58,61 @@ angular.module('firstAppApp')
           $scope.refreshDatagrid();
         }
       }
-      $scope.openPersonModal = function () {
+      $scope.openPersonModal = function (id) {
         console.log("opening modal");
-      }
-    }
+        if(id){
+          var user = users.filter(function(user){
+            return (user.id===id)
+          })[0];
+          $scope.user=user;
+        }
+        $("#personModal").modal("show");
 
+      }
+      $scope.updatePerson = function (userId) {
+        console.log("updating user id: "+userId);
+
+      }
+      $scope.clearUser = function () {
+        console.log("clearing user in modal");
+        $scope.user={};
+
+      }
+      $scope.closeModal=function(){
+        $scope.clearUser();
+        $("#personModal").modal("hide");
+      };
+      $scope.savePerson = function () {
+        var user= $scope.user;
+        if(user.id){
+          users.filter(function(u){
+            return (u.id===user.id)
+          })[0]= user;
+          console.log("user updated having id "+user.id);
+        }else{
+          user.id=userId;
+          console.log(user);
+          users.push(user);
+          console.log("saving user with id: "+userId);
+          userId+=1;
+        }
+        $scope.refreshDatagrid();
+        $scope.closeModal();
+      }
+      $scope.deleteUser = function (userId) {
+        users=users.filter(function(u){
+          return (u.id!==userId)
+        })
+        $scope.refreshDatagrid();
+      }
+
+
+      $scope.$on("hidden.bs.modal",function(events, arg){
+        console.log(events)
+        console.log(arg)
+        console.log("hiding modal");
+
+        $scope.clearUser();
+      })
+    }
   ]);

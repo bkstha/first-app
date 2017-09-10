@@ -33,6 +33,7 @@ module.exports = function(config) {
       // endbower
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
+      'test/spec/controllers/*.js',
       'test/spec/**/*.js'
     ],
 

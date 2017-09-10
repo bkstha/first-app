@@ -6,7 +6,8 @@
         <span class="input-group-addon bg-info text-light">
           <span class="oi" data-glyph="reload" title="reload" aria-hidden="true"></span>
         </span>
-        <input type="text" class="form-control" placeholder="Search Person" ng-model="search" ng-change="refreshDatagrid()"
+        <input type="text" class="form-control" placeholder="Search Person" ng-model="search"
+               ng-change="refreshDatagrid()"
                aria-label="Recipient's username"
         />
         <span class=" input-group-addon">
@@ -19,10 +20,6 @@
       <div class="input-group">
         <select class="form-control border-dark" ng-model="pageSize" ng-change="refreshDatagrid()"
                 ng-options="p as p.label for p in pageSizes" style="padding: 0px;">
-        <!--  <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>-->
         </select>
       </div>
     </div>
@@ -46,18 +43,28 @@
       </thead>
       <tbody>
       <tr ng-repeat="user in users">
-        <td>{{user.id}}</td>
+        <td ng-click="openPersonModal(user.id)">{{user.id}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
-        <td>{{user.contact}}</td>
-        <td>setting</td>
+        <td>{{user.contactNumber}}</td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-cog fa-fw"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#" ng-click="openPersonModal(user.id)">Update</a>
+              <a class="dropdown-item" href="#" ng-click="deleteUser(user.id)">Delete</a>
+            </div>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-end">
         <li class="page-item">
-          <a class="page-link"  ng-click="prevPage()"
+          <a class="page-link" ng-click="prevPage()"
              tabindex="-1" [disabled]="{{pageNumber===1}}">&larr; Previous</a>
         </li>
         <li class="page-item">
@@ -65,9 +72,47 @@
             id="countData">{{((pageSize.value*pageNumber)-pageSize.value)+1}} to {{((pageSize.value*pageNumber))}} of {{totalDataLength}}</span></a>
         </li>
         <li class="page-item">
-          <a class="page-link"  ng-click="nextPage()" ng-disabled="{{pageNumber===(totalDataLength/pageSize.value)}}">Next &rarr;</a>
+          <a class="page-link" ng-click="nextPage()" ng-disabled="{{pageNumber===(totalDataLength/pageSize.value)}}">Next
+            &rarr;</a>
         </li>
       </ul>
     </nav>
+  </div>
+  <div class="modal fade" id="personModal" tabindex="-1" role="dialog" aria-labelledby="personModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="personModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <input type="hidden" ng-model="user.id" value="{{user.id}}">
+            <span class="input-group-addon" id="userName">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <input type="text" class="form-control" aria-describedby="userName" ng-model="user.name" placeholder="NAME"
+                   value="{{user.name}}">
+          </div>
+          <br/>
+          <div class="input-group">
+            <span class="input-group-addon" id="userEmail">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <input type="text" class="form-control" aria-describedby="userEmail" ng-model="user.email"
+                   placeholder="E-MAIL" value="{{user.email}}">
+          </div>
+          <br/>
+          <div class="input-group">
+            <span class="input-group-addon" id="userContactNumber">Contact Number</span>
+            <input type="text" class="form-control" aria-describedby="userContactNumber" ng-model="user.contactNumber"
+                   placeholder="CONTACT NUMBER" value="{{user.contactNumber}}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="savePerson()">Save changes</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
