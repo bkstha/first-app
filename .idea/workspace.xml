@@ -146,8 +146,8 @@
           <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/.gitignore">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="105">
-                  <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+                <state relative-caret-position="147">
+                  <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -280,6 +280,11 @@
             <path>
               <item name="first-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="first-app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="first-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="first-app" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="first-app" type="b2602c69:ProjectViewProjectNode" />
@@ -470,12 +475,12 @@
       <workItem from="1504891513935" duration="837000" />
       <workItem from="1504892463435" duration="24172000" />
       <workItem from="1504891404259" duration="2130000" />
-      <workItem from="1504938879672" duration="25300000" />
+      <workItem from="1504938879672" duration="25475000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55239000" />
+    <option name="totallyTimeSpent" value="55414000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -909,8 +914,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        <state relative-caret-position="147">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
