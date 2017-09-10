@@ -3,6 +3,4 @@
 /.tmp
 /.sass-cache
 /bower_components
-/.idea/
-.idea/inspectionProfiles/
-.idea/vcs.xml
+/.idea
