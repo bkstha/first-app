@@ -12,8 +12,8 @@ angular.module('firstAppApp')
     function ($scope, $cookies, $location) {
       console.log("at login page");
       $cookies.remove("user");
-      const loginEmail = "email@shresthab.com.np";
-      const loginPassword = "111";
+      var loginEmail = "email@shresthab.com.np";
+      var loginPassword = "111";
       $scope.user = {};
       $scope.submit = function () {
         if ($scope.user.email === loginEmail && $scope.user.password === loginPassword) {

@@ -1,22 +1,31 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: DashboardCtrl', function () {
 
   // load the controller's module
   beforeEach(module('firstAppApp'));
 
-  var MainCtrl,
+  var DashboardCtrl,
     scope;
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    DashboardCtrl = $controller('DashboardCtrl', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(MainCtrl.awesomeThings.length).toBe(3);
+    expect(scope.pageSize.value).toBe(10);
+    expect(scope.pageSizes.length).toBe(4);
+    expect(scope.user).toEqual({ });
+    expect(scope.pageNumber).toBe(1);
+    expect(scope.totalDataLength).toBe(150);
+    // expect(scope.totalDataLength).toBe(150);
+
+
+
+
   });
 });

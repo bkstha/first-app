@@ -12,7 +12,7 @@ angular.module('firstAppApp')
     function ($scope) {
       console.log("at dashboard page");
       var users = [];
-      const pagesSize = 10;
+      var pagesSize = 10;
       var userId=151;
       $scope.pageSizes = [
         {id: 0, label: '10', value: 10},
