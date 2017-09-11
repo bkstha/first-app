@@ -22,7 +22,7 @@ describe('Controller: DashboardCtrl', function () {
     expect(scope.user).toEqual({ });
     expect(scope.pageNumber).toBe(1);
     expect(scope.totalDataLength).toBe(150);
-    // expect(scope.totalDataLength).toBe(150);
+
 
 
 

@@ -108,10 +108,9 @@ angular.module('firstAppApp')
 
 
       $scope.$on("hidden.bs.modal",function(events, arg){
-        console.log(events)
-        console.log(arg)
+        console.log(events);
+        console.log(arg);
         console.log("hiding modal");
-
         $scope.clearUser();
       })
     }
