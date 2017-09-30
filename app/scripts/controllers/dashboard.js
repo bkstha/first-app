@@ -8,8 +8,17 @@
  * Controller of the firstAppApp
  */
 angular.module('firstAppApp')
-  .controller('DashboardCtrl', ["$scope",
-    function ($scope) {
+/*  .factory('personListFactory',['$http', function($http){
+      function getPersons(){
+        return $http.get("localhost:8080/persons")
+          .then(function(response){
+            console.log(response.data);
+            return response.data;
+          })
+      }
+    }])*/
+  .controller('DashboardCtrl', ["$scope",'$http', 'PersonFactory',
+    function ($scope, $http, PersonFactory) {
       console.log("at dashboard page");
       var users = [];
       var pagesSize = 10;
@@ -22,14 +31,41 @@ angular.module('firstAppApp')
       ];
       $scope.user = {};
       $scope.pageSize = $scope.pageSizes[0];
-      for (var i = 0; i < 150; i++) {
-        var index = (i + 1);
-        users.push({id: (index), email: "email" + index, name: "name" + (index), contactNumber: "contact" + index})
-      }
+      PersonFactory.getPersons().then(function(data){
+        data.map(function(d){
+          console.log(d);
+          users.push({id: d.id, email: d.email, name: d.name , contactNumber: d.contactNumber})
+          $scope.users = users.slice(0, pagesSize);
+          $scope.pageNumber = 1;
+          $scope.totalDataLength = users.length;
+        })
 
-      $scope.users = users.slice(0, pagesSize);
-      $scope.pageNumber = 1;
-      $scope.totalDataLength = users.length;
+      });
+      // for (var i = 0; i < 150; i++) {
+      //   var index = (i + 1);
+      //   users.push({id: (index), email: "email" + index, name: "name" + (index), contactNumber: "contact" + index})
+      // }
+    /*  $http.get("http://localhost:8080/persons")
+        .then(function(response) {
+          // $scope.myWelcome = response.data;
+          response.data.map(function(d){
+            console.log(d);
+            users.push({id: d.id, email: d.email, name: d.name , contactNumber: d.contactNumber})
+            $scope.users = users.slice(0, pagesSize);
+            $scope.pageNumber = 1;
+            $scope.totalDataLength = users.length;
+          })
+          // return response;
+        });*/
+
+      /*personListFactory.getPersons().then(function(data){
+        data.map(function(d){
+          console.log(d);
+          users.push({id: d.id, email: d.email , name: d.name , contactNumber: d.contactNumber})
+        })
+      });*/
+
+
 
       $scope.refreshDatagrid = function () {
         var pageSize = $scope.pageSize.value;
@@ -38,7 +74,7 @@ angular.module('firstAppApp')
         console.log("refreshing data");
         if (searchData) {
           $scope.users = users.filter(function (user) {
-            return (user.name.indexOf(searchData) > -1 || user.email.indexOf(searchData) > -1 || user.contact.indexOf(searchData) > -1)
+            return (user.name.indexOf(searchData) > -1 || user.email.indexOf(searchData) > -1 || user.contactNumber.indexOf(searchData) > -1)
           }).slice(((pageNumber * pageSize) - pageSize), pageSize * pageNumber);
         } else {
           $scope.users = users.slice((((pageNumber * pageSize) - pageSize)), pageSize * pageNumber);
